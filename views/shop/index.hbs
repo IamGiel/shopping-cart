@@ -1,95 +1,23 @@
+{{#each products}}
 <div class="row">
+  {{!-- we place this here cause we are iterating the column here for each individual products container --}} 
+  {{#each this}}
   <div class="col-sm-6 col-md-4">
     <div class="thumbnail">
-      <img src="https://compass-ssl.xbox.com/assets/13/07/1307d85d-e58d-44b6-8734-22577a44941e.jpg?n=Minecraft-2017_sharing_200x200.jpg"
+      <img src="{{this.imagePath}}"
         class="image-responsive" alt="...">
       <div class="caption">
-        <h3>Thumbnail label</h3>
+        <h3>{{this.Title}}</h3>
         <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit magni, modi qui eligendi aspernatur, necessitatibus
           id incidunt fugit aut laudantium ea officia quisquam nulla nostrum nesciunt beatae exercitationem et omnis?</p>
         <div class="clearfix">
           <div class="price pull-left">$12</div>
-          <a href="#" class="btn btn-success pull-right" role="button">Button</a>
+          <a href="#" class="btn btn-success pull-right" role="button">Buy</a>
         </div>
       </div>
     </div>
   </div>
-  <div class="col-sm-6 col-md-4">
-    <div class="thumbnail">
-      <img src="https://compass-ssl.xbox.com/assets/13/07/1307d85d-e58d-44b6-8734-22577a44941e.jpg?n=Minecraft-2017_sharing_200x200.jpg"
-        class="image-responsive" alt="...">
-      <div class="caption">
-        <h3>Thumbnail label</h3>
-        <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit magni, modi qui eligendi aspernatur, necessitatibus
-          id incidunt fugit aut laudantium ea officia quisquam nulla nostrum nesciunt beatae exercitationem et omnis?</p>
-        <div class="clearfix">
-          <div class="price pull-left">$12</div>
-          <a href="#" class="btn btn-success pull-right" role="button">Button</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6 col-md-4">
-    <div class="thumbnail">
-      <img src="https://compass-ssl.xbox.com/assets/13/07/1307d85d-e58d-44b6-8734-22577a44941e.jpg?n=Minecraft-2017_sharing_200x200.jpg"
-        class="image-responsive" alt="...">
-      <div class="caption">
-        <h3>Thumbnail label</h3>
-        <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit magni, modi qui eligendi aspernatur, necessitatibus
-          id incidunt fugit aut laudantium ea officia quisquam nulla nostrum nesciunt beatae exercitationem et omnis?</p>
-        <div class="clearfix">
-          <div class="price pull-left">$12</div>
-          <a href="#" class="btn btn-success pull-right" role="button">Button</a>
-        </div>
-      </div>
-    </div>
-  </div>
+  {{/each}}
 </div>
+{{/each}}
 
-<div class="row">
-  <div class="col-sm-6 col-md-4">
-    <div class="thumbnail">
-      <img src="https://compass-ssl.xbox.com/assets/13/07/1307d85d-e58d-44b6-8734-22577a44941e.jpg?n=Minecraft-2017_sharing_200x200.jpg"
-        class="image-responsive" alt="...">
-      <div class="caption">
-        <h3>Thumbnail label</h3>
-        <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit magni, modi qui eligendi aspernatur, necessitatibus
-          id incidunt fugit aut laudantium ea officia quisquam nulla nostrum nesciunt beatae exercitationem et omnis?</p>
-        <div class="clearfix">
-          <div class="price pull-left">$12</div>
-          <a href="#" class="btn btn-success pull-right" role="button">Button</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6 col-md-4">
-    <div class="thumbnail">
-      <img src="https://compass-ssl.xbox.com/assets/13/07/1307d85d-e58d-44b6-8734-22577a44941e.jpg?n=Minecraft-2017_sharing_200x200.jpg"
-        class="image-responsive" alt="...">
-      <div class="caption">
-        <h3>Thumbnail label</h3>
-        <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit magni, modi qui eligendi aspernatur, necessitatibus
-          id incidunt fugit aut laudantium ea officia quisquam nulla nostrum nesciunt beatae exercitationem et omnis?</p>
-        <div class="clearfix">
-          <div class="price pull-left">$12</div>
-          <a href="#" class="btn btn-success pull-right" role="button">Button</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6 col-md-4">
-    <div class="thumbnail">
-      <img src="https://compass-ssl.xbox.com/assets/13/07/1307d85d-e58d-44b6-8734-22577a44941e.jpg?n=Minecraft-2017_sharing_200x200.jpg"
-        class="image-responsive" alt="...">
-      <div class="caption">
-        <h3>Thumbnail label</h3>
-        <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit magni, modi qui eligendi aspernatur, necessitatibus
-          id incidunt fugit aut laudantium ea officia quisquam nulla nostrum nesciunt beatae exercitationem et omnis?</p>
-        <div class="clearfix">
-          <div class="price pull-left">$12</div>
-          <a href="#" class="btn btn-success pull-right" role="button">Button</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
