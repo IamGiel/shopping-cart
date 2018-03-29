@@ -4,6 +4,7 @@ var csrf = require('csurf'); //import protection to hashed password
 var csrfProtection = csrf(); //initiate it here like a middleware
 router.use(csrfProtection);
 var passport = require('passport');
+// var passport = require("../config/passport");
 
 var Product = require("../models/product");
 /* GET home page. */
@@ -29,8 +30,8 @@ router.get('/', function(req, res, next) {
 //create our signup route (get)
 router.get('/user/signup', function(req, res, next){
   //using flash messages after validation is complete
-  var messages = req.flash('error');
-  res.render('user/signup', {csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length>0}) // this is being handled by the csurf package
+  var throwMessage = req.flash('error');
+  res.render('user/signup', {csrfToken: req.csrfToken(), messages: throwMessage, hasErrors: throwMessage.length>0}) // this is being handled by the csurf package
 })
 //passport doesnt know the authenticate method because its not imported in this file
 //you can import passport here, OR you can require config/passport in the app.js

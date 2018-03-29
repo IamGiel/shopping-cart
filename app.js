@@ -10,7 +10,9 @@ var expressHbs = require('express-handlebars');
 var mongoose = require('mongoose');
 var session = require('express-session')//to use csurf you need session installed
 var passport = require('passport');
-var flash = require('connect-flash')
+var flash = require('connect-flash');
+var validator = require('express-validator');
+
 
 
 //route
@@ -32,7 +34,10 @@ app.set('view engine', '.hbs');//this refers to the engine above '.hbs'
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+// parse urlencoded request bodies into req.body
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(validator());
 app.use(cookieParser());
 app.use(session({secret:'mysecret', resave: false, saveUninitialized: false}));//session initialized
 //resave = true, session will be saved on a server on each request no matter it saved or not - depracated
