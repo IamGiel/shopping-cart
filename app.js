@@ -8,6 +8,10 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 var expressHbs = require('express-handlebars');
 var mongoose = require('mongoose');
+var session = require('express-session')//to use csurf you need session installed
+var passport = require('passport');
+var flash = require('connect-flash')
+
 
 //route
 var indexRouter = require("./routes/index");
@@ -18,6 +22,8 @@ var app = express();
 //expects an input, which is the path of the server, you can check it after you ran mongod
 //the `/shopping` is the name of the database you intend to create
 mongoose.connect("mongodb://localhost:27017/shopping");
+//require helper -> config/passport here after mongoose connect
+require('./config/passport')
 
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
@@ -28,6 +34,16 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({secret:'mysecret', resave: false, saveUninitialized: false}));//session initialized
+//resave = true, session will be saved on a server on each request no matter it saved or not - depracated
+//saveUninitialized = true, the essions will be saved even if its not intialized - depracated
+
+//add flash  and passport after  session secret is initialized ORDER MATTERS
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
