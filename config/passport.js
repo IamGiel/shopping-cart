@@ -1,4 +1,3 @@
-
 var passport = require("passport");
 var User = require("../models/user");
 var LocalStrategy = require("passport-local").Strategy; //chaining the object `Strategy`
@@ -27,23 +26,31 @@ passport.use(
       usernameField: "email", //tell passport that usernameField is email
       passwordField: "password", //tell passport that passwordField is password
       passReqToCallback: true //which means that in the callback function below you can access and use the (request, email, password and done)
-      //the call back function
     },
     function(req, email, password, done) {
+      //the call back function
       //check for validations here, before running the query to database.
-      req.checkBody('email', 'invalid email\n').notEmpty().isEmail();
-      req.checkBody('password', 'invalid password\n').notEmpty().isLength({min:4});
+      req
+        .checkBody("email", "invalid email\n")
+        .notEmpty()
+        .isEmail();
+      req
+        .checkBody("password", "invalid password\n")
+        .notEmpty()
+        .isLength({
+          min: 4
+        });
       var errors = req.validationErrors();
-      if(errors){
+      if (errors) {
         var messages = [];
-        errors.forEach(function(error){
+        errors.forEach(function(error) {
           messages.push(error.msg);
-        })
-        return done(null, false, req.flash('error', messages));
+        });
+        return done(null, false, req.flash("error", messages));
       }
       //use mongo method to find one (which is email)
       User.findOne({
-        'email': email, //equal to the second argument passed in the call back function
+        email: email, //equal to the second argument passed in the call back function
         function(err, user) {
           if (err) {
             //check1
