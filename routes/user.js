@@ -50,7 +50,23 @@ router.post(
   })
 );
 
-router.get("/profile", function(req, res, next) {
+router.get('/logout', function (req, res, next) {
+  req.logout();//also a method used by passport
+  res.redirect('/');
+})
+
+router.get("/profile", isLoggedIn, function(req, res, next) {
   res.render("user/profile");
 });
+
+
 module.exports = router;
+
+//PROTECT ROUTES
+function isLoggedIn(req, res, next){
+  if(req.isAuthenticated()){//passport method that checks session
+    return next();//which means continue
+  }
+  res.redirect('/')
+
+}
