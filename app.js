@@ -16,7 +16,8 @@ var validator = require('express-validator');
 
 
 //route
-var indexRouter = require("./routes/index");
+var router = require("./routes/index");
+var userRouter = require("./routes/user");
 
 var app = express();
 
@@ -51,8 +52,8 @@ app.use(passport.session());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-// app.use('/users', usersRouter);
+app.use('/', router);
+app.use('/user', userRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

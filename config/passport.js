@@ -141,13 +141,13 @@ passport.use(
             //false -> means the process is unsuccessful
             //message -> tells user email is already taken
             return done(null, false, {
-              message: "No user found" //message not messages!
+              message: "No user of that email found" //message not messages!
             }); //check2
           }
           if (!user.validPassword(password)) {
             console.log("USER AFTER SIGNIN! >>>>>>>", password);
             return done(null, false, {
-              message: "No user found" //message not messages!
+              message: "Entered a wrong password" //message not messages!
             }); //check2
           }
           //after passing checks above, we can RETURN user

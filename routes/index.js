@@ -1,10 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var csrf = require('csurf'); //import protection to hashed password
-var csrfProtection = csrf(); //initiate it here like a middleware
-router.use(csrfProtection);
-var passport = require('passport');
-// var passport = require("../config/passport");
+// var csrf = require('csurf'); //import protection to hashed password
+// var csrfProtection = csrf(); //initiate it here like a middleware
+// router.use(csrfProtection);
+// var passport = require('passport');
 
 var Product = require("../models/product");
 /* GET home page. */
@@ -27,37 +26,4 @@ router.get('/', function(req, res, next) {
     });
   });
 });
-//====== signup route GET and POST ======
-//create our signup route (get)
-router.get('/user/signup', function(req, res, next){
-  //using flash messages after validation is complete
-  var throwMessage = req.flash('error');
-  res.render('user/signup', {csrfToken: req.csrfToken(), messages: throwMessage, hasErrors: throwMessage.length>0}) // this is being handled by the csurf package
-})
-//passport doesnt know the authenticate method because its not imported in this file
-//you can import passport here, OR you can require config/passport in the app.js
-router.post('/user/signup', passport.authenticate('local-signup', {
-  successRedirect: '/user/profile',
-  failureRedirect: '/user/signup',
-  failureFlash: true
-}))
-
-//====== signin route GET and POST ======
-//create our signin route (get)
-router.get('/user/signin', function(req, res, next){
-  //using flash messages after validation is complete
-  var throwMessage = req.flash('error');
-  res.render('user/signin', {csrfToken: req.csrfToken(), messages: throwMessage, hasErrors: throwMessage.length>0}) // this is being handled by the csurf package
-})
-//passport doesnt know the authenticate method because its not imported in this file
-//you can import passport here, OR you can require config/passport in the app.js
-router.post('/user/signin', passport.authenticate('local-signin', {
-  successRedirect: '/user/profile',
-  failureRedirect: '/user/signup',//if cant signin, let user signup
-  failureFlash: true
-}))
-
-router.get('/user/profile', function(req, res, next){
-  res.render('user/profile');
-})
 module.exports = router;
