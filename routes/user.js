@@ -12,6 +12,7 @@ router.get("/profile", isLoggedIn, function(req, res, next) {
   res.render("user/profile");
 });
 
+//GROUPING BY MIDDLEWARE: Having this notloggedIn function here before all the other routes
 router.use("/", notLoggedIn, function(req, res, next){
   next();
 });

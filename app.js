@@ -52,6 +52,11 @@ app.use(passport.session());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+//add another middle ware executed in all request
+app.use(function(req, res, next){
+  res.locals.login = req.isAuthenticated(); //locals set a global property which is available in all views
+})
 app.use('/', router);
 app.use('/user', userRouter);
 
