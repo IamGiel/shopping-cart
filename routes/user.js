@@ -12,6 +12,11 @@ router.get("/profile", isLoggedIn, function(req, res, next) {
   res.render("user/profile");
 });
 
+router.get("/logout", isLoggedIn, function(req, res, next) {
+  req.logout(); //also a method used by passport
+  res.redirect("/user/logout");
+});
+
 //GROUPING BY MIDDLEWARE: Having this notloggedIn function here before all the other routes
 router.use("/", notLoggedIn, function(req, res, next){
   next();
@@ -60,11 +65,6 @@ router.post(
     failureFlash: true
   })
 );
-
-router.get('/logout', function (req, res, next) {
-  req.logout();//also a method used by passport
-  res.redirect('/');
-})
 
 module.exports = router;
 
