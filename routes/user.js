@@ -5,6 +5,7 @@ var csrf = require("csurf"); //import protection to hashed password
 var csrfProtection = csrf(); //initiate it here like a middleware
 router.use(csrfProtection);
 var passport = require("passport");
+require("../config/passport");
 
 //====== signup route GET and POST ======
 //create our signup route (get)

@@ -1,6 +1,7 @@
 var passport = require("passport");
 var User = require("../models/user");
 var LocalStrategy = require("passport-local").Strategy; //chaining the object `Strategy`
+// require('../models/user');
 
 //this function tells passport how to store the user in the session
 passport.serializeUser(function(user, done) {
@@ -128,30 +129,42 @@ passport.use(
       User.findOne(
         { email: email }, //add closing bracket!
         function(err, user) {
-          //equal to the second argument passed in the call back function
           if (err) {
-            //check1
-            console.log("ERROR HERE passport 59 >>>>>>", err);
             return done(err);
           }
           if (!user) {
-            console.log("USER AFTER SIGNIN! >>>>>>>", user);
-            //in the next line of code:
-            //null -> means no error but also
-            //false -> means the process is unsuccessful
-            //message -> tells user email is already taken
-            return done(null, false, {
-              message: "No user of that email found" //message not messages!
-            }); //check2
+            return done(null, false, {message: 'No user with that email.'});
           }
-          if (!user.validPassword(password)) {
-            console.log("USER AFTER SIGNIN! >>>>>>>", password);
+          if (user.validPassword(password)) {
+            console.log("Logging validPassword function >>>>> ", !user.validPassword(password));
             return done(null, false, {
-              message: "Entered a wrong password" //message not messages!
-            }); //check2
+              message: "Entered a wrong password."
+            });
           }
+          return done(null, user);
+          //equal to the second argument passed in the call back function
+          // if (err) {
+          //   //check1
+          //   console.log("ERROR HERE passport 59 >>>>>>", err);
+          //   return done(err);
+          // }
+          // if (!user) {
+          //   console.log("USER AFTER SIGNIN! >>>>>>>", user);
+          //   //in the next line of code:
+          //   //null -> means no error but also
+          //   //false -> means the process is unsuccessful
+          //   //message -> tells user email is already taken
+          //   return done(null, false, {
+          //     message: "No user of that email found" //message not messages!
+          //   }); //check2
+          // }
+          // if (!user.validPassword(password)) {
+          //   console.log("USER AFTER SIGNIN! >>>>>>>", password);
+          //   return done(null, false, {
+          //     message: "Entered a wrong password" //message not messages!
+          //   }); //check2
+          // }
           //after passing checks above, we can RETURN user
-          return done(null, user)
         }
       );
     }

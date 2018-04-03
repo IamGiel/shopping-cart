@@ -2,7 +2,7 @@
 //2. a variable that uses the mongoose object
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
-var bcrypt = require('bcrypt-nodejs');//we will use this to hash password
+var bcrypt = require('bcrypt');//we will use this to hash password
 
 //define model
 var userSchema = new Schema({
@@ -17,5 +17,6 @@ userSchema.methods.encryptPassword = function(password){
 //below we will compare if both hashed password is a match! (validPassword can be renamed to your liking)
 userSchema.methods.validPassword = function(password){
   bcrypt.compareSync(password, this.password);//`this.password` refers the current user input for the password field
+  console.log("this is bcrypt compare password- TRUE or FALSE check = ", bcrypt.compareSync(password, this.password));
 }
 module.exports = mongoose.model("User", userSchema);

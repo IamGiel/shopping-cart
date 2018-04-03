@@ -38,7 +38,7 @@ app.use(express.json());
 // parse urlencoded request bodies into req.body
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-app.use(validator());
+app.use(validator());//parses the body and retrieve the parameters you want to validate from bodyParser
 app.use(cookieParser());
 app.use(session({secret:'mysecret', resave: false, saveUninitialized: false}));//session initialized
 //resave = true, session will be saved on a server on each request no matter it saved or not - depracated
