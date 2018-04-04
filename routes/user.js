@@ -61,7 +61,7 @@ router.post(
   "/signin",
   passport.authenticate("local-signin", {
     successRedirect: "/user/profile",
-    failureRedirect: "/user/signup", //if cant signin, let user signup
+    failureRedirect: "/user/signin", //if cant signin, reroute here.
     failureFlash: true
   })
 );
