@@ -12,6 +12,7 @@ var session = require('express-session')//to use csurf you need session installe
 var passport = require('passport');
 var flash = require('connect-flash');
 var validator = require('express-validator');
+var MongoStore = require('connect-mongo')(session);//pass the object session
 
 
 
