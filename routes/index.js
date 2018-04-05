@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var Cart = require('../models/cart');
 // var csrf = require('csurf'); //import protection to hashed password
 // var csrfProtection = csrf(); //initiate it here like a middleware
 // router.use(csrfProtection);
@@ -26,4 +27,21 @@ router.get('/', function(req, res, next) {
     });
   });
 });
+
+router.get('/add-to-cart/:id', function(req, res, next){
+  //push my product to the cart
+  //cart object in a session
+  var prodId= req.params.id; //retrieve id here
+  var cart = new Cart( req.session.cart ? req.session.cart : { items: {} } ) //create a new cart while passing the old cart
+  //use mongoose to find product by id
+  Product.findById(prodId, function(err, product){
+    if(err){
+      return res.redirect('/');
+    }
+    cart.add(product, prodId);
+    req.session.cart = cart;
+    console.log("working session on cart >>>>>>> ", req.session.cart)
+    res.redirect('/');
+  })
+})
 module.exports = router;

@@ -41,7 +41,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(validator());//parses the body and retrieve the parameters you want to validate from bodyParser
 app.use(cookieParser());
-app.use(session({secret:'mysecret', resave: false, saveUninitialized: false}));//session initialized
+app.use(session(
+  {
+    secret:'mysecret', 
+    resave: false, 
+    saveUninitialized: false,
+    store: new MongoStore({ mongooseConnection: mongoose.connection }),//tell mongooseConnection not open a new connection on its own.
+    cookie: { maxAge: 180 * 60 * 1000 }//session configuration that determines how long the session should live.  180 = 3 hours.
+  }
+));//session initialized
 //resave = true, session will be saved on a server on each request no matter it saved or not - depracated
 //saveUninitialized = true, the essions will be saved even if its not intialized - depracated
 
@@ -57,6 +65,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //add another middle ware executed in all request
 app.use(function(req, res, next){
   res.locals.login = req.isAuthenticated(); //locals set a global property which is available in all views `login` is something you can rename
+  res.locals.session = req.session; //make sure we can access `session` variable in all the views
   next();
 })
 app.use('/', router);
