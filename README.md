@@ -15,4 +15,6 @@ To Run:
 3. in the CLI, type mongod
 4. in a different CLI, type mongo
 5. in a different CLI type, npm start
+6. Open your browser: go to -> http://localhost:3000/ 
+7. Enjoy and leave me a comment!
 
