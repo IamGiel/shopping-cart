@@ -1,4 +1,6 @@
 //cart object here
+
+//constructor:
 module.exports = function Cart(oldCart){//whenever we recreate the cart we also pass the old cart init
   this.items = oldCart.items || {};//old cart items
   this.totalQty = oldCart.totalQty || 0; //store total quantity
@@ -14,9 +16,9 @@ module.exports = function Cart(oldCart){//whenever we recreate the cart we also 
     if(!storedItem){
       storedItem = this.items.id = { item: item, qty: 0, price:0 };//we are creating a new entry
       storedItem.qty++;
-      storedItem.price = storedItem.item.price * storedItem.qty;
+      storedItem.Price = storedItem.item.Price * storedItem.qty;
       this.totalQty++;
-      this.totalPrice += storedItem.item.price;
+      this.totalPrice += storedItem.item.Price;
     };
   this. generateArray = function(){
     var arr = [];
