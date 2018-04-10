@@ -46,11 +46,11 @@ router.get('/add-to-cart/:id', function(req, res, next){
 });
 
 router.get("/shopping-cart", function(req, res, next) {
-  if(!req.session.cart){
+  if(!req.session.cart){//saying, if there is no session stored currently
     return res.render('shop/shopping-cart', {products: null});
   }
-  var cart = new Cart(req.session.cart);//create new card off of the session
-  res.render('shop/shopping-cart', {products: cart.generateArray(), totalPrice: cart.totalPrice})
+  var cart = new Cart(req.session.cart);//otherwise, create new cart session store it in cart variable
+  res.render('shop/shopping-cart', {products: cart.generateArray(), totalPrice: cart.totalPrice})//call it here, defined in variable keys so we can call it again in handlebars pages
 });
 
 router.get("/checkout", function(req, res, next) {

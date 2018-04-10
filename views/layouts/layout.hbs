@@ -14,14 +14,16 @@
 
 <body>
   {{!-- this is syntax that handle bars use to identify partials --}} {{>header}}
+
+  <!-- JQUERY placed here to make sure its accessible because we want to make sure the we are importing the data from stripe before the view.--> 
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+    crossorigin="anonymous"></script>
   <div class="container">
     {{{body}}}
   </div>
 
 
-  <!-- JQUERY-->
-  <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-    crossorigin="anonymous"></script>
+
 
   <!-- BOOTSTRAP: Latest compiled and minified JavaScript -->
   {{!-- for modals, mobile devices, collapsibles --}}
