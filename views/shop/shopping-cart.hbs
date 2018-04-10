@@ -8,7 +8,7 @@
         <strong>Title: {{ this.item.Title }}</strong>
         <span class="label label-success">$ {{this.item.Price}}</span>
         <div class="btn-group">
-          <button class="btn btn-primary btn-xs dropdown-toggle" type="button">Action
+          <button class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" type="button">Action
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu">
@@ -34,7 +34,7 @@
 <hr>
 <div class="row">
   <div class="col-sm-6 col-md-6 col-med-offset-3 col-med-offset-3">
-    <button type="button" class="btn btn-success">checkout</button>
+    <a href="/checkout" type="button" class="btn btn-success">checkout</a>
   </div>
 </div>
 {{else}}

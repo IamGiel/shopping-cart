@@ -43,7 +43,7 @@ router.get('/add-to-cart/:id', function(req, res, next){
     console.log("add to cart >>>>>>", req.session.cart)
     res.redirect('/');
   })
-})
+});
 
 router.get("/shopping-cart", function(req, res, next) {
   if(!req.session.cart){
@@ -51,5 +51,14 @@ router.get("/shopping-cart", function(req, res, next) {
   }
   var cart = new Cart(req.session.cart);//create new card off of the session
   res.render('shop/shopping-cart', {products: cart.generateArray(), totalPrice: cart.totalPrice})
-})
+});
+
+router.get("/checkout", function(req, res, next) {
+  if (!req.session.cart) {
+    return res.redirect("/shopping-cart");
+  }
+    var cart = new Cart(req.session.cart); //create new card off of the session
+    res.render("shop/checkout", { total: cart.totalPrice });
+});
+
 module.exports = router;
