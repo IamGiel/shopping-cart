@@ -1,4 +1,5 @@
 This application allows user to sell their items.
+View this at: <a href="https://iamgiel.github.io/shopping-cart/">here.</a>
 
 Tech-Stack: 
 1. mongodb, mongoose
