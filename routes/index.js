@@ -32,16 +32,24 @@ router.get('/add-to-cart/:id', function(req, res, next){
   //push my product to the cart
   //cart object in a session
   var prodId= req.params.id; //retrieve id here
-  var cart = new Cart( req.session.cart ? req.session.cart : { items: {} } ) //create a new cart while passing the old cart
+  var cart = new Cart( req.session.cart ? req.session.cart : {} ) //create a new cart while passing the old cart
   //use mongoose to find product by id
   Product.findById(prodId, function(err, product){
     if(err){
       return res.redirect('/');
     }
-    cart.add(product, prodId);
+    cart.add(product, product.id);
     req.session.cart = cart;
-    console.log("working session on cart >>>>>>> ", req.session.cart)
+    console.log("add to cart >>>>>>", req.session.cart)
     res.redirect('/');
   })
+})
+
+router.get("/shopping-cart", function(req, res, next) {
+  if(!req.session.cart){
+    return res.render('shop/shopping-cart', {products: null});
+  }
+  var cart = new Cart(req.session.cart);//create new card off of the session
+  res.render('shop/shopping-cart', {products: cart.generateArray(), totalPrice: cart.totalPrice})
 })
 module.exports = router;

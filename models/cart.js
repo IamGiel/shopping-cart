@@ -15,8 +15,10 @@ module.exports = function Cart(oldCart){//whenever we create the cart we also pa
   this.add = function(item, id){
     var storedItem = this.items[id];//we are able to check if the items (object) have this key and been added already
     if(!storedItem){
-      storedItem = this.items.id = { item: item, qty: 0, price:0 };//we are creating a new entry
-      storedItem.qty++;
+      storedItem = this.items[id] = { item: item, qty: 0, Price:0 };//we are creating a new entry
+     
+    }
+     storedItem.qty++;
       storedItem.Price = storedItem.item.Price * storedItem.qty;
       this.totalQty++;
       this.totalPrice += storedItem.item.Price;
@@ -29,8 +31,6 @@ module.exports = function Cart(oldCart){//whenever we create the cart we also pa
     }
     return arr;
   };
-
-  }
 }
 
 //basically we get the old cart, assign the values of the old cart, 
