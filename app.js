@@ -21,11 +21,20 @@ var router = require("./routes/index");
 var userRouter = require("./routes/user");
 
 var app = express();
+const PORT = process.env.PORT || 3001;
 
 //mongoose connect method
 //expects an input, which is the path of the server, you can check it after you ran mongod
 //the `/shopping` is the name of the database you intend to create
-mongoose.connect("mongodb://localhost:27017/shopping");
+// mongoose.connect("mongodb://localhost:27017/shopping");
+
+
+// Set up promises with mongoose
+mongoose.Promise = global.Promise;
+// Connect to the Mongo DB
+mongoose.connect(
+  process.env.MONGODB_URI || "mongodb://localhost:27017/shopping"
+);
 //require helper -> config/passport here after mongoose connect
 require('./config/passport')
 
@@ -85,6 +94,11 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+// Start the API server
+app.listen(PORT, function() {
+  console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
 });
 
 module.exports = app;
