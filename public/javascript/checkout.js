@@ -45,3 +45,4 @@ function stripeResponseHandler(status, response) {
     $form.get(0).submit();
   }
 }
+

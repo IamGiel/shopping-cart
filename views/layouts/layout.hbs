@@ -15,16 +15,12 @@
 <body>
   {{!-- this is syntax that handle bars use to identify partials --}} {{>header}}
 
-  <!-- JQUERY placed here to make sure its accessible because we want to make sure the we are importing the data from stripe before the view.--> 
-  <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-    crossorigin="anonymous"></script>
+<!-- JQUERY placed here to make sure its accessible because we want to make sure the we are importing the data from stripe before the view.-->
+<script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
   <div class="container">
     {{{body}}}
   </div>
-
-
-
-
   <!-- BOOTSTRAP: Latest compiled and minified JavaScript -->
   {{!-- for modals, mobile devices, collapsibles --}}
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"

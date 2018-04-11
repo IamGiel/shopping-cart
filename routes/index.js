@@ -7,9 +7,10 @@ var Cart = require("../models/cart");
 // var passport = require('passport');
 
 var Product = require("../models/product");
+var Order = require("../models/order");
 /* GET home page. */
 router.get("/", function(req, res, next) {
-  successMsg = req.flash('success')[0];
+  successMsg = req.flash("success")[0];
   //were referencing model here and using `find()` method to query the database
   Product.find(function(err, prod) {
     if (err) {
@@ -66,8 +67,12 @@ router.get("/checkout", function(req, res, next) {
     return res.redirect("/shopping-cart");
   }
   var cart = new Cart(req.session.cart); //create new card off of the session
-  var errMsg = req.flash('error')[0];
-  res.render("shop/checkout", { total: cart.totalPrice, errMsg: errMsg, noError:!errMsg });
+  var errMsg = req.flash("error")[0];
+  res.render("shop/checkout", {
+    total: cart.totalPrice,
+    errMsg: errMsg,
+    noError: !errMsg
+  });
 });
 
 router.post("/checkout", function(req, res, next) {
@@ -76,26 +81,32 @@ router.post("/checkout", function(req, res, next) {
   }
   var cart = new Cart(req.session.cart); //create new card off of the session
   //here we use stripe to make a charge to user
-  var stripe = require("stripe")("sk_test_Ypo9FzGeUXetzwgutn9Y5AyA"); //test key
-
+  var stripe = require("stripe")("sk_test_Ypo9FzGeUXetzwgutn9Y5AyA");
   stripe.charges.create(
     {
-      amount: cart.totalPrice * 100, //this is in cents so multiple to 100 to get a dollar
-      currency: "usd", // US Dollar
-      source: req.body.stripeToken, // off of the hidden input field in the javascript file
+      amount: cart.totalPrice * 100,
+      currency: "usd",
+      source: req.body.stripeToken, // obtained with Stripe.js
       description: "Test Charge"
     },
     function(err, charge) {
-      // asynchronously called
       if (err) {
         req.flash("error", err.message);
         return res.redirect("/checkout");
       }
-      req.flash('success', "successful purchase!");
-      req.cart = null;//reset the cart
-      res.redirect('/');
-    }
-  );
+      var order = new Order({
+        user: req.user,//passport provides this object user
+        cart: cart, //cart line82
+        address: req.body.address,
+        name: req.body.name,
+        paymentId: charge.id//charge from line 92, see docs for stripe charge object
+      });
+      order.save(function(err, result) {
+        req.flash("success", "Successfully bought product!");
+        req.session.cart = null;
+        res.redirect("/");
+      });
+    });
 });
 
 module.exports = router;
