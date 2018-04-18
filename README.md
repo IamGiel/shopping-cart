@@ -1,6 +1,9 @@
 This application allows user to sell their items.
 View this at: <a href="#">~coming soon~.</a>
 
+Heres a screen shot: 
+![Screenshot](https://raw.githubusercontent.com/IamGiel/shopping-cart/master/public/images/screen.png)
+
 Tech-Stack: 
 1. mongodb, mongoose
 2. express, nodejs
