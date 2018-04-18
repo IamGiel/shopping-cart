@@ -62,7 +62,7 @@ router.get("/shopping-cart", function(req, res, next) {
   }); //call it here, defined in variable keys so we can call it again in handlebars pages
 });
 
-router.get("/checkout", function(req, res, next) {
+router.get("/checkout", isLoggedIn, function(req, res, next) {
   if (!req.session.cart) {
     return res.redirect("/shopping-cart");
   }
@@ -75,7 +75,7 @@ router.get("/checkout", function(req, res, next) {
   });
 });
 
-router.post("/checkout", function(req, res, next) {
+router.post("/checkout", isLoggedIn,  function(req, res, next) {
   if (!req.session.cart) {
     return res.redirect("/shopping-cart");
   }
@@ -110,3 +110,19 @@ router.post("/checkout", function(req, res, next) {
 });
 
 module.exports = router;
+
+
+//PROTECT ROUTES
+function isLoggedIn(req, res, next){
+  if(req.isAuthenticated()){//passport method that checks session
+    return next();//which means continue
+  }
+  res.redirect('/user/signin')
+}
+function notLoggedIn(req, res, next) {
+  if (!req.isAuthenticated()) {
+    //passport method that checks session
+    return next(); //which means continue
+  }
+  res.redirect("//user/signin");
+}
