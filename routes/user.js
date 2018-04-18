@@ -7,9 +7,22 @@ router.use(csrfProtection);
 var passport = require("passport");
 require("../config/passport");
 
+var Order = require("../models/order");
+
 
 router.get("/profile", isLoggedIn, function(req, res, next) {
-  res.render("user/profile");
+  Order.find({user: req.user}, function(err, orders){
+    if(err){
+      return res.write('Error!');
+    }
+    var cart;
+    orders.forEach(function(order){
+      //generate new cart for each looped values
+      cart = new cart(order.cart);
+      order.items = cart.generateArray();
+    })
+    res.render("user/profile", {orders: orders});
+  });
 });
 
 router.get("/logout", isLoggedIn, function(req, res, next) {
@@ -18,7 +31,7 @@ router.get("/logout", isLoggedIn, function(req, res, next) {
 });
 
 //GROUPING BY MIDDLEWARE: Having this notloggedIn function here before all the other routes
-router.use("/", notLoggedIn, function(req, res, next){
+router.use("/", notLoggedIn, function(req, res, next) {
   next();
 });
 
@@ -44,8 +57,9 @@ router.post(
   function(req, res, next) {
     //if successful log in
     if (req.session.oldUrl) {
-      res.redirect(req.session.oldUrl);
+      var oldUrl = req.session.oldUrl;
       req.session.oldUrl = null;
+      res.redirect(oldUrl);
     } else {
       res.redirect("/user/profile");
     }
@@ -57,7 +71,7 @@ router.post(
 router.get("/signin", function(req, res, next) {
   //using flash messages after validation is complete
   var throwMessage = req.flash("error");
-  res.render("user/signin", {
+  res.render("user/signup", {
     csrfToken: req.csrfToken(),
     messages: throwMessage,
     hasErrors: throwMessage.length > 0
@@ -68,11 +82,12 @@ router.get("/signin", function(req, res, next) {
 router.post(
   "/signin",
   passport.authenticate("local-signin", {
-    failureRedirect: "/user/signin", //if cant signin, reroute here.
+    failureRedirect: "/user/signup", //if cant signin, reroute here.
     failureFlash: true
-  }), function (req, res, next) {
+  }),
+  function(req, res, next) {
     //if successful log in
-    if(req.session.oldUrl){
+    if (req.session.oldUrl) {
       res.redirect(req.session.oldUrl);
       req.session.oldUrl = null;
     } else {
@@ -84,17 +99,18 @@ router.post(
 module.exports = router;
 
 //PROTECT ROUTES
-function isLoggedIn(req, res, next){
-  if(req.isAuthenticated()){//passport method that checks session
-    return next();//which means continue
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated()) {
+    //passport method that checks session
+    return next(); //which means continue
   }
-  res.redirect('/')
+  res.redirect("/");
 }
 function notLoggedIn(req, res, next) {
   if (!req.isAuthenticated()) {
     //passport method that checks session
     return next(); //which means continue
   }
-  req.session.oldUrl = req.url;//storing the old URL, when user sign-in
+  req.session.oldUrl = req.url; //storing the old URL, when user sign-in
   res.redirect("/");
 }
