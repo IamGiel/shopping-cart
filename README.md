@@ -4,6 +4,10 @@ View this at: <a href="#">~coming soon~.</a>
 Heres a screen shot: 
 ![Screenshot](https://raw.githubusercontent.com/IamGiel/shopping-cart/master/public/images/screen.png)
 
+----
+
+![](https://raw.githubusercontent.com/IamGiel/shopping-cart/master/public/images/screen2.png)
+
 Tech-Stack: 
 1. mongodb, mongoose
 2. express, nodejs
