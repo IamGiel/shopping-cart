@@ -38,10 +38,18 @@ router.get("/signup", function(req, res, next) {
 router.post(
   "/signup",
   passport.authenticate("local-signup", {
-    successRedirect: "/user/profile",
     failureRedirect: "/user/signup",
     failureFlash: true
-  })
+  }),
+  function(req, res, next) {
+    //if successful log in
+    if (req.session.oldUrl) {
+      res.redirect(req.session.oldUrl);
+      req.session.oldUrl = null;
+    } else {
+      res.redirect("/user/profile");
+    }
+  }
 );
 
 //====== signin route GET and POST ======
@@ -60,10 +68,17 @@ router.get("/signin", function(req, res, next) {
 router.post(
   "/signin",
   passport.authenticate("local-signin", {
-    successRedirect: "/user/profile",
     failureRedirect: "/user/signin", //if cant signin, reroute here.
     failureFlash: true
-  })
+  }), function (req, res, next) {
+    //if successful log in
+    if(req.session.oldUrl){
+      res.redirect(req.session.oldUrl);
+      req.session.oldUrl = null;
+    } else {
+      res.redirect("/user/profile");
+    }
+  }
 );
 
 module.exports = router;
@@ -80,5 +95,6 @@ function notLoggedIn(req, res, next) {
     //passport method that checks session
     return next(); //which means continue
   }
+  req.session.oldUrl = req.url;//storing the old URL, when user sign-in
   res.redirect("/");
 }
