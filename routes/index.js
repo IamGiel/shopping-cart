@@ -60,6 +60,13 @@ router.get('/reduce/:id', function(req, res, next){
     req.session.cart = cart;
     res.redirect("/shopping-cart");
 })
+router.get("/remove-all/:id", function(req, res, next) {
+  var prodId = req.params.id; //retrieve id here
+  var cart = new Cart(req.session.cart ? req.session.cart : {});
+  cart.removeAll(prodId);
+  req.session.cart = cart;
+  res.redirect("/shopping-cart");
+});
 
 
 router.get("/shopping-cart", function(req, res, next) {

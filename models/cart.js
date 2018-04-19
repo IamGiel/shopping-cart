@@ -33,6 +33,14 @@ module.exports = function Cart(oldCart) {
     this.totalPrice -= this.items[id].item.Price;
   };
 
+  //Reduce an item by one
+  this.removeAll = function(id) {
+
+    this.totalQty -= this.items[id].totalQty;
+    this.totalPrice -= this.items[id].Price;
+    delete this.items[id];
+  };
+
   this.generateArray = function() {
     var arr = [];
     //loop through items and push them in arr
