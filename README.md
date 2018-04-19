@@ -1,4 +1,4 @@
-This application allows user to sell their items.  This is web application is for a client that wants to have sell his stuff online using his own website.  The MVP should have:
+This application allows user to sell their items.  This is web application is for a client that wants to have his own web app where he can sell his stuff.  The MVP should have:
 
 * Display the Items he has with photo and its price.
 * User can login/logout and make purchase.
