@@ -8,6 +8,8 @@ var passport = require("passport");
 require("../config/passport");
 
 var Order = require("../models/order");
+var Cart = require("../models/cart");
+
 
 
 router.get("/profile", isLoggedIn, function(req, res, next) {
@@ -18,7 +20,7 @@ router.get("/profile", isLoggedIn, function(req, res, next) {
     var cart;
     orders.forEach(function(order){
       //generate new cart for each looped values
-      cart = new cart(order.cart);
+      cart = new Cart(order.cart);
       order.items = cart.generateArray();
     })
     res.render("user/profile", {orders: orders});
@@ -71,7 +73,7 @@ router.post(
 router.get("/signin", function(req, res, next) {
   //using flash messages after validation is complete
   var throwMessage = req.flash("error");
-  res.render("user/signup", {
+  res.render("user/signin", {
     csrfToken: req.csrfToken(),
     messages: throwMessage,
     hasErrors: throwMessage.length > 0
