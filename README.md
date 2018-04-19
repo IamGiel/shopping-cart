@@ -1,5 +1,14 @@
-This application allows user to sell their items.
-View this at: <a href="#">~coming soon~.</a>
+This application allows user to sell their items.  This is web application is for a client that wants to have sell his stuff online using his own website.  The MVP should have:
+
+* Display the Items he has with photo and its price.
+* User can login/logout and make purchase.
+* Have profile page
+* Purchase history
+* Track transactions
+* Ability to charge a credit cardf/ATM
+* In the future, allow users to do the same (but for now its only the clients personal site for selling his own stuff).
+
+View this live at : <a href="#">~coming soon~.</a>
 
 Heres a screen shot: 
 ![Screenshot](https://raw.githubusercontent.com/IamGiel/shopping-cart/master/public/images/screen.png)
