@@ -9,6 +9,11 @@ require("../config/passport");
 
 var Order = require("../models/order");
 var Cart = require("../models/cart");
+// var moment = require("moment");
+// var date = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
+// to record the date purchased
+
+
 
 
 
@@ -22,8 +27,10 @@ router.get("/profile", isLoggedIn, function(req, res, next) {
       //generate new cart for each looped values
       cart = new Cart(order.cart);
       order.items = cart.generateArray();
+      order.date = cart.generateDate();
+      console.log(" date >>>>>>>>", order.date);
     })
-    res.render("user/profile", {orders: orders});
+    res.render("user/profile", { orders: orders });
   });
 });
 

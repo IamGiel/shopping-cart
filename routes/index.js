@@ -8,6 +8,9 @@ var Cart = require("../models/cart");
 
 var Product = require("../models/product");
 var Order = require("../models/order");
+var moment = require("moment");
+var purchaseDate = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
+
 /* GET home page. */
 router.get("/", function(req, res, next) {
   successMsg = req.flash("success")[0];
@@ -50,15 +53,26 @@ router.get("/add-to-cart/:id", function(req, res, next) {
   });
 });
 
+router.get('/reduce/:id', function(req, res, next){
+    var prodId = req.params.id; //retrieve id here
+    var cart = new Cart(req.session.cart ? req.session.cart : {});
+    cart.reduceItemByOne(prodId);
+    req.session.cart = cart;
+    res.redirect("/shopping-cart");
+})
+
+
 router.get("/shopping-cart", function(req, res, next) {
   if (!req.session.cart) {
     //saying, if there is no session stored currently
     return res.render("shop/shopping-cart", { products: null });
   }
   var cart = new Cart(req.session.cart); //otherwise, create new cart session store it in cart variable
+
   res.render("shop/shopping-cart", {
     products: cart.generateArray(),
-    totalPrice: cart.totalPrice
+    totalPrice: cart.totalPrice,
+    date: purchaseDate
   }); //call it here, defined in variable keys so we can call it again in handlebars pages
 });
 
