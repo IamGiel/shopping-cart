@@ -8,6 +8,10 @@ Heres a screen shot:
 
 ![](https://raw.githubusercontent.com/IamGiel/shopping-cart/master/public/images/screen2.png)
 
+----
+
+![](https://raw.githubusercontent.com/IamGiel/shopping-cart/master/public/images/profile.png)
+
 Tech-Stack: 
 1. mongodb, mongoose
 2. express, nodejs
