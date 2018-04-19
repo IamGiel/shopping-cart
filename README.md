@@ -10,7 +10,7 @@ Heres a screen shot:
 
 ----
 
-![]()
+![](https://raw.githubusercontent.com/IamGiel/shopping-cart/master/public/images/purchase.png)
 
 Tech-Stack: 
 1. mongodb, mongoose
