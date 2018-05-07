@@ -21,7 +21,7 @@ var router = require("./routes/index");
 var userRouter = require("./routes/user");
 
 var app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3004;
 
 //mongoose connect method
 //expects an input, which is the path of the server, you can check it after you ran mongod

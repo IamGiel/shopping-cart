@@ -145,5 +145,5 @@ function notLoggedIn(req, res, next) {
     //passport method that checks session
     return next(); //which means continue
   }
-  res.redirect("//user/signin");
+  res.redirect("/user/signin");
 }
